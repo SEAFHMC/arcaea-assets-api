@@ -1,6 +1,7 @@
 from pathlib import Path
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.requests import Request
+from fastapi.responses import FileResponse
 from config import Config
 from assets_updater import AssetsUpdater
 from os import listdir
@@ -37,3 +38,8 @@ def _(request: Request):
     for file in listdir(ROOT / "assets" / "char"):
         resp_json[file] = f"{Config.base_url or request.base_url}assets/char/{file}"
     return resp_json
+
+
+@app.get("/api/version")
+def _():
+    return FileResponse(ROOT / "version.json")
