@@ -30,7 +30,7 @@ class AssetsUpdater:
 
     @classmethod
     def unzip_apk(cls):
-        rmtree(ROOT / "assets")
+        rmtree(ROOT / "assets", ignore_errors=True)
         with open(ROOT / "version.json", "r", encoding="UTF-8") as f:
             version = json.loads(f.read())["value"]["version"]
         zip_file = ZipFile(ROOT / f"arcaea_{version}.apk")
