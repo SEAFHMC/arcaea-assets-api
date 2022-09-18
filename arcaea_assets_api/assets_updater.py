@@ -7,15 +7,15 @@ from shutil import move, copy, rmtree
 
 ROOT = Config.ROOT
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+}
+
 
 class AssetsUpdater:
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
-    }
-
     @classmethod
     async def download_apk(cls):
-        async with AsyncClient(timeout=100, verify=False) as client:
+        async with AsyncClient(timeout=100, verify=False, headers=headers) as client:
             resp = await client.get(
                 "https://webapi.lowiro.com/webapi/serve/static/bin/arcaea/apk"
             )
@@ -57,7 +57,7 @@ class AssetsUpdater:
     async def check_update(cls):
         with open(ROOT / "version.json", "r", encoding="UTF-8") as f:
             local_version = json.loads(f.read())["value"]["version"]
-        async with AsyncClient(timeout=100, verify=False) as client:
+        async with AsyncClient(timeout=100, verify=False, headers=headers) as client:
             resp = await client.get(
                 "https://webapi.lowiro.com/webapi/serve/static/bin/arcaea/apk"
             )
