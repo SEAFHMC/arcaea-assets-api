@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "arcaea-assets-api"
+version = "0.1.0"
+description = ""
+authors = ["SEAFHMC <d1366160279@gmail.com>"]
+readme = "README.md"
+packages = [{include = "arcaea_assets_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.85.0"
+black = "^22.8.0"
+httpx = "^0.23.0"
+ujson = "^5.5.0"
+uvicorn = "^0.18.3"
+APScheduler = "^3.9.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
