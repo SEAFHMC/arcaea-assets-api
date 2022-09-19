@@ -47,6 +47,7 @@ class AssetsUpdater:
             ROOT / "assets" / "char" / "5_icon.png",
             ROOT / "assets" / "char" / "5u_icon.png",
         )
+        zip_file.close()
 
     @classmethod
     async def update(cls):
