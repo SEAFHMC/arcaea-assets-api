@@ -2,7 +2,7 @@ import ujson as json
 from httpx import AsyncClient
 from zipfile import ZipFile
 from config import Config
-from os import listdir
+from os import listdir, remove
 from shutil import move, copy, rmtree
 
 ROOT = Config.ROOT
@@ -48,6 +48,7 @@ class AssetsUpdater:
             ROOT / "assets" / "char" / "5u_icon.png",
         )
         zip_file.close()
+        remove(ROOT / f"arcaea_{version}.apk")
 
     @classmethod
     async def update(cls):
