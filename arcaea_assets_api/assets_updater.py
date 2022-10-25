@@ -4,6 +4,7 @@ from zipfile import ZipFile
 from config import Config
 from os import listdir, remove
 from shutil import move, copy, rmtree
+from aiofiles import open as async_open
 
 ROOT = Config.ROOT
 
@@ -23,10 +24,10 @@ class AssetsUpdater:
                 f.write(json.dumps(resp.json(), indent=2))
             download_link = resp.json()["value"]["url"]
             version = resp.json()["value"]["version"]
-            with open(ROOT / f"arcaea_{version}.apk", "wb") as f:
-                resp = await client.get(download_link)
-                for chunk in resp.iter_bytes(1024 * 1024):
-                    f.write(chunk)
+            async with async_open(ROOT / f"arcaea_{version}.apk", "wb") as f:
+                async with client.stream("GET", download_link) as resp:
+                    async for chunk in resp.aiter_bytes(1024 * 1024):
+                        await f.write(chunk)
 
     @classmethod
     def unzip_apk(cls):
