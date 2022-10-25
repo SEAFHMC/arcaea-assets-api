@@ -19,6 +19,14 @@ def _(request: Request, background_tasks: BackgroundTasks):
     return {"message": "Access denied."}
 
 
+@app.post("/api/unzip_apk")
+def _(request: Request, background_tasks: BackgroundTasks):
+    if request.headers.get("Authorization") == Config.token:
+        background_tasks.add_task(AssetsUpdater.unzip_apk)
+        return {"message": "Succeeded."}
+    return {"message": "Access denied."}
+
+
 @app.get("/api/song_list")
 def _(request: Request):
     resp_json = {}
