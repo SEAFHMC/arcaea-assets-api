@@ -11,7 +11,7 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(
-        app=app,
+        app=app, # type: ignore
         host="127.0.0.1",
         port=17777,
     )
